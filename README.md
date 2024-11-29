@@ -1,4 +1,4 @@
-# Timer IP Module
+# Timer IP Design and Verification
 
 The Timer IP module is a crucial component designed for precise timing operations in a chip environment. It provides essential functionalities that can be utilized in various applications, including pulse generation, delay generation, event generation, PWM generation, and interrupt generation.
 
