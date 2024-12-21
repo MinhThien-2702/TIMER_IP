@@ -17,13 +17,13 @@ always @* begin
     if (div_en && timer_en) begin 
         case (div_val)
             4'b0000: div_factor = 32'd1; 
-            4'b0001: div factor = 32'd2;
+            4'b0001: div_factor = 32'd2;
             4'b0010: div_factor = 32'd4; 
             4'b0011: div_factor = 32'd8; 
             4'b0100: div_factor = 32'd16; 
             4'b0101: div_factor = 32'd32; 
             4'b0110: div_factor = 32'd64; 
-            4'b0111: div factor 32'd128; 
+            4'b0111: div_factor = 32'd128; 
             default: div_factor = 32'd256;
         endcase
     end else if (!div_en && timer_en) begin 
@@ -54,7 +54,7 @@ end
 
 always @(posedge clk or negedge rst_n) begin
     if (!rst_n) begin
-        halt ack <= 1'b0;
+        halt_ack <= 1'b0;
     end else begin
         halt_ack <= valid_halt_condition;
     end

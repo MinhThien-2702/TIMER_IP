@@ -2,20 +2,20 @@ module counter (
     input wire clk, input wire rst_n, 
     input wire cnt_en,
     input wire timer_en_H_L,
-    input wire tdrl_wr_sel, tdro_wr_sel, 
-    input wire [31:0] tdro, tdrl, 
+    input wire tdr1_wr_sel, tdr0_wr_sel, 
+    input wire [31:0] tdr0, tdr1,
     input wire valid_halt_condition, 
     output reg [63:0] cnt_value
 );
-reg tdrl_wr_sel_d, tdro_wr_sel_d; 
+reg tdr1_wr_sel_d, tdr0_wr_sel_d;
 initial cnt_value = 64'b0;
     always @(posedge clk or negedge rst_n) begin 
         if (!rst_n) begin
-            tdrl_wr_sel_d <= 1'b0; 
-            tdro_wr_sel d <= 1'b0;
+            tdr1_wr_sel_d <= 1'b0; 
+            tdr0_wr_sel_d <= 1'b0;
     end else begin
-            tdrl_wr_sel_d <= tdrl_wr_sel; 
-            tdro_wr_sel_d <= tdro_wr_sel;
+            tdr1_wr_sel_d <= tdr1_wr_sel; 
+            tdr0_wr_sel_d <= tdr0_wr_sel;
         end
     end
     always @(posedge clk or negedge rst_n) begin 
@@ -32,6 +32,6 @@ initial cnt_value = 64'b0;
             end
     end 
     always @* begin
-        cnt_value = {tdrl,tdr0};
+        cnt_value = {tdr1,tdr0};
     end
 endmodule

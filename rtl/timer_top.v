@@ -17,13 +17,17 @@ wire [31:0] wdata;
 wire wr_en, rd_en; 
 wire [63:0] cnt_value; 
 wire div_en, timer_en; 
-wire [3:0] div_val; wire cnt_en;
+wire [3:0] div_val; 
+wire cnt_en;
 wire halt_req, halt_ack;
-wire [31:0] tdro, tdrl;
-wire [31:0] tcmp0, tcmp1; wire int_st, int_en;
+wire [31:0] tdr0;
+wire [31:0] tdr1;
+wire [31:0] tcmp0, tcmp1; 
+wire int_st, int_en;
 wire int_st_set;
 wire pslverr_control, pslverr_reg;
-wire tdro_wr_sel, tdrl_wr_sel;
+wire tdr0_wr_sel; 
+wire tdrl_wr_sel;
 wire timer_en_H_L;
 wire int_st_clear;
 wire valid_halt_condition;
@@ -32,11 +36,11 @@ apb_slave u_apb_slave(
 .rst_n(sys_rst_n), 
 .psel (tim_psel),
 .pwrite(tim_pwrite), 
-.penable (tim penable),
+.penable(tim_penable),
 .paddr(tim_paddr), 
-.pstrb(tim_pstrb),
+//.pstrb(tim_pstrb),
 .pwdata (tim_pwdata), 
-.wdata(wdata),
+//.wdata(wdata),
 .pready(tim_pready), 
 .wr_en (wr_en), 
 .rd_en (rd_en)
@@ -50,11 +54,11 @@ register_file u_register_file (
 .pstrb(tim_pstrb),
 .wdata (tim_pwdata), 
 .rdata (tim_prdata), 
-.tdrl_wr_sel (tdrl_wr_sel), 
-.tdro_wr_sel (tdro_wr_sel), 
+.tdr1_wr_sel (tdr1_wr_sel), 
+.tdr0_wr_sel (tdr0_wr_sel), 
 .cnt_value (cnt_value), 
-.pwdata_cnte (pwdata_cnt0),
-.pwdata_cntl(pwdata_cnt1), 
+//.pwdata_cnt0(pwdata_cnt0),
+//.pwdata_cntl(pwdata_cnt1), 
 .int_st (int_st),
 .int_en (int_en), 
 .int_st_set(int_st_set),
@@ -64,17 +68,19 @@ register_file u_register_file (
 .div_val (div_val),
 .timer_en (timer_en),
 .timer_en_H_L(timer_en_H_L),
-.TDRO (tdro),
+.TDR0 (tdr0),
 .TDR1 (tdr1),
-.TCMPO (tcmp0),
+.TCMP0(tcmp0),
 .TCMP1(tcmp1),
 .halt_req(halt_req),
 .pslverr_reg (pslverr_reg),
-.pslverr control (pslverr control)
+.pslverr_control(pslverr_control)
 );
 control_counter u_control_counter (
-.clk(sys_clk), .rst_n(sys_rst_n), 
-.div_en (div_en), div_val (div_val), 
+.clk(sys_clk), 
+.rst_n(sys_rst_n), 
+.div_en(div_en), 
+.div_val(div_val), 
 .halt_req(halt_req), 
 .dbg_mode (dbg_mode), 
 .timer_en (timer_en),
@@ -85,16 +91,17 @@ control_counter u_control_counter (
 counter u_counter (
 .clk(sys_clk),
 .rst_n(sys_rst_n),
-.tdrl_wr_sel (tdr1_wr_sel), 
-.tdro_wr_sel (tdro_wr_sel), 
+.tdr1_wr_sel (tdr1_wr_sel), 
+.tdr0_wr_sel (tdr0_wr_sel), 
 .cnt_en (cnt_en),
 .timer_en_H_L(timer_en_H_L),
-.tdro (tdro),
-.tdrl(tdrl),
-.valid_halt_condition (valid_halt_condition),
-.cnt_value (cnt_value)
+.tdr0 (tdr0),
+.tdr1 (tdr1),
+.valid_halt_condition(valid_halt_condition),
+.cnt_value(cnt_value)
 );
-interrupt u interrupt (
+
+interrupt u_interrupt (
 .clk(sys_clk),
 .rst_n (sys_rst_n),
 .int_st_set(int_st_set),

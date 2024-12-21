@@ -23,7 +23,7 @@ reg int_st_clear_d;
             if (int_st_clear_d) begin
                 tim_int = 1'b0;
             end else if (int_st) begin 
-                tim int = 1'b1;
+                tim_int = 1'b1;
             end else begin
                 tim_int = tim_int;
         end   

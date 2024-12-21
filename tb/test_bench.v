@@ -15,7 +15,6 @@ wire tim_int;
 reg dbg_mode;
 
 timer_top u_dut(.*);
-
 `include "run_test.v"
 
     initial begin
@@ -27,7 +26,7 @@ timer_top u_dut(.*);
         sys_rst_n = 1;
         tim_pstrb = 4'b1111;
         tim_paddr = 0;
-        tim_psel 0;
+        tim_psel = 0;
         tim_pwrite = 0;
         tim_penable = 0;
         tim_pwdata = 0;
