@@ -1,5 +1,6 @@
 module interrupt (
-    input wire clk, input wire rst_n, 
+    input wire clk, 
+    input wire rst_n, 
     input wire int_st_set, 
     input wire int_en, 
     input wire int_st,

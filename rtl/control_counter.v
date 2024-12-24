@@ -13,6 +13,7 @@ module control_counter(
 reg [8:0] div_factor;
 reg [7:0] int_cnt;
 
+assign valid_halt_condition = dbg_mode & halt_req;
 always @* begin
     if (div_en && timer_en) begin 
         case (div_val)

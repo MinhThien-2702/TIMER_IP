@@ -204,16 +204,9 @@ wire int_st_prev;
 wire [63:0] counter, compare;
 assign counter = {TDR1, TDR0}; 
 assign compare = {TCMP1, TCMP0}; 
-reg tisr_wr_sel_d;
-    always @(posedge clk or negedge rst_n) begin
-        if (!rst_n) begin
-            tisr_wr_sel_d <= 1'b0;
-        end else begin
-            tisr_wr_sel_d <= tisr_wr_sel;
-        end
-    end
+
 assign int_st_clear = (tisr_wr_sel & pstrb[0] & wdata[0]==1'b1);
-assign int_st_prev = (int_st_clear & int_st) ? 1'b0: (int_st_set? 1'b1 : int_st); 
+assign int_st_prev = (int_st_clear & int_st) ? 1'b0: (int_st_set ? 1'b1 : int_st); 
     always @(posedge clk or negedge rst_n) begin
         if (!rst_n) begin
             int_st <= 1'b0;

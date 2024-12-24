@@ -1,5 +1,6 @@
 module counter (
-    input wire clk, input wire rst_n, 
+    input wire clk, 
+    input wire rst_n, 
     input wire cnt_en,
     input wire timer_en_H_L,
     input wire tdr1_wr_sel, tdr0_wr_sel, 

@@ -12,7 +12,6 @@ module apb_slave (
 );
     reg penable_d;
 
-    // ??ng b? hóa tín hi?u penable
     always @(posedge clk or negedge rst_n) begin
         if (!rst_n) begin
             penable_d <= 1'b0;
@@ -21,13 +20,13 @@ module apb_slave (
         end
     end
 
-    // Tín hi?u pready ???c xác ??nh d?a trên wr_en và rd_en
     assign pready = wr_en | rd_en;
     
-    // Logic ?i?u khi?n tín hi?u wr_en và rd_en
     always @* begin
-        wr_en = 1'b0; // M?c ??nh reset
-        rd_en = 1'b0;
+	if (!rst_n) begin
+        	wr_en = 1'b0; 
+        	rd_en = 1'b0;
+	end else begin
         if (penable_d && psel && penable) begin
             if (pwrite) begin
                 wr_en = 1'b1;
@@ -36,6 +35,10 @@ module apb_slave (
                 wr_en = 1'b0;
                 rd_en = 1'b1;
             end
-        end
+        end else begin
+		wr_en = 1'b0;
+		rd_en = 1'b0;
+    		end
+	end
     end
 endmodule
