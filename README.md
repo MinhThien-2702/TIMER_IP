@@ -22,6 +22,16 @@ This project customizes a timer module based on the CLINT (Core Local Interrupto
 - **Counter Division**: The counter can count based on the system clock or be divided down to a maximum of 256.
 - **Interrupt Generation**: Supports timer interrupts that can be enabled or disabled as per user requirements.
 
+## Project Structure
+
+Block diagram
+![Block Diagram](./img/block_diagram.png)
+
+## Coverage report
+
+Coverage report
+![Coverage report](./img/coverage_detail.png)
+
 ## GitHub Repository Structure
 
 The project is organized into several directories to facilitate development and testing:
